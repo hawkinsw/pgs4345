@@ -58,8 +58,8 @@ void overload_resolution_example() {
 
 template <class T> class Base {
 public:
-  void setter(const T &) { std::cout << "Setter in Base\n"; }
-  void getter() { std::cout << "Getter in Base\n"; }
+  virtual void setter(const T &) { std::cout << "Setter in Base\n"; }
+  virtual void getter() { std::cout << "Getter in Base\n"; }
 };
 
 template <class T> class Derived : public Base<T> {
@@ -68,28 +68,14 @@ public:
   virtual void getter() { std::cout << "Getter in Derived\n"; }
 };
 
-template <class T> class BaseV {
-public:
-  virtual void setter(const T &) { std::cout << "Setter in BaseV\n"; }
-  virtual void getter() { std::cout << "Getter in BaseV\n"; }
-};
-
-template <class T> class DerivedV : public BaseV<T> {
-public:
-  virtual void setter(const T &) { std::cout << "Setter in DerivedV\n"; }
-  virtual void getter() { std::cout << "Getter in DerivedV\n"; }
-};
-
 void virtual_function_example() {
 
   Derived<int> d{};
   Base<int> b{d};
-  DerivedV<int> dv{};
-  BaseV<int> &bv{dv};
+  Base<int> &bv{d};
 
   b.setter(5);
   b.getter();
-
   bv.setter(5);
   bv.getter();
 }
