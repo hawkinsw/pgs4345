@@ -86,10 +86,6 @@ void virtual_function_example() {
   Base<int> b{d};
   DerivedV<int> dv{};
   BaseV<int> &bv{dv};
-  // BaseV<int> vv{dv}; // Does not work as expected: No matter that we have
-  // declared the functions to be virtual,
-  // the fact that vv is *not* a reference nor a pointer, slicing occurs and
-  // the static type of the object is used for dispatching.
 
   b.setter(5);
   b.getter();
